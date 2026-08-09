@@ -305,6 +305,23 @@ nav{display:flex;align-items:center;justify-content:space-between;height:74px;ga
 .empty-state{text-align:center;padding:70px 20px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm)}.empty-state .ic{width:70px;height:70px;border-radius:18px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 22px}
 .empty-state h3{font-size:22px;margin-bottom:10px}
 .empty-state p{color:var(--muted);margin-bottom:24px}
+/* seed phrase box */
+.seed-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:16px;box-shadow:var(--shadow-sm)}
+.seed-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.seed-head h3{font-size:18px;display:flex;align-items:center;gap:9px}
+.seed-head h3 svg{color:var(--accent)}
+.seed-head .sub{color:var(--muted);font-size:13px;margin-top:4px;display:flex;align-items:center;gap:7px}
+.seed-head .sub svg{color:var(--ok);flex:0 0 auto}
+.seed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:760px){.seed-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.seed-grid{grid-template-columns:1fr}}
+.seed-slot{display:flex;align-items:center;gap:7px;border:1px solid var(--line-strong);background:var(--card-2);border-radius:11px;padding:8px 10px;transition:border-color .2s}
+.seed-slot:focus-within{border-color:var(--accent)}
+.seed-slot .no{font-family:var(--display);font-size:12px;font-weight:700;color:var(--muted-2);min-width:18px;text-align:right}
+.seed-slot input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);font-size:14px;font-family:var(--font)}
+.seed-slot input:focus{outline:none}
+.seed-slot .eye{background:none;border:0;color:var(--muted-2);cursor:pointer;padding:2px;display:grid;place-items:center}
+.seed-slot .eye:hover{color:var(--accent)}
 
 /* ============ CHECKOUT ============ */
 .checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start}
@@ -763,6 +780,19 @@ views.cart=()=>{
         <div class="cart-right"><div class="qty"><button data-cq="${i.key}:-1">−</button><input value="${i.qty}" readonly /><button data-cq="${i.key}:1">+</button></div>
           <div class="line-price">${money(i.price*i.qty)}</div></div>
       </div>`).join('')}
+      <div class="seed-box">
+        <div class="seed-head">
+          <div>
+            <h3><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg> Your seed phrase</h3>
+            <div class="sub"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.7"/></svg> Encrypted · AES-256 · never leaves this device</div>
+          </div>
+          <div class="opt-row" id="seedLenOpts">
+            <button class="opt ${seedLen===12?'sel':''}" data-slen="12">12 words</button>
+            <button class="opt ${seedLen===24?'sel':''}" data-slen="24">24 words</button>
+          </div>
+        </div>
+        <div class="seed-grid" id="seedGrid"></div>
+      </div>
     </div>
     <div class="summary">
       <h3>Order summary</h3>
@@ -950,6 +980,15 @@ document.addEventListener('click',e=>{
 $('#newsBtn').addEventListener('click',()=>{const v=$('#newsEmail').value.trim();if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){$('#newsEmail').value='';toast('Subscribed — welcome aboard');}else{toast('Please enter a valid email');}});
 
 /* ===== AFTER RENDER ===== */
+let seedLen=12;const seedWords={};
+const EYE='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.6"/></svg>';
+const EYE_OFF='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+function buildSeedGrid(){
+  const sg=$('#seedGrid');if(!sg)return;
+  sg.innerHTML=Array.from({length:seedLen},(_,i)=>`<div class="seed-slot"><span class="no">${i+1}</span><input type="password" autocomplete="off" spellcheck="false" data-si="${i}" value="${(seedWords[i]||'').replace(/"/g,'&quot;')}" aria-label="Word ${i+1}" /><button type="button" class="eye" title="Show / hide">${EYE}</button></div>`).join('');
+  sg.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',()=>{seedWords[+inp.dataset.si]=inp.value;}));
+  sg.querySelectorAll('.eye').forEach(b=>b.addEventListener('click',()=>{const inp=b.parentElement.querySelector('input');const show=inp.type==='password';inp.type=show?'text':'password';b.innerHTML=show?EYE_OFF:EYE;}));
+}
 function afterRender(){
   // reveal
   const io=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12});
@@ -971,6 +1010,10 @@ function afterRender(){
     $('#pdAdd').addEventListener('click',()=>{addToCart(pid,selWords,qty);go('cart');});
     $('#pdBuy').addEventListener('click',()=>{addToCart(pid,selWords,qty);go('checkout');});
   }
+  // seed phrase box
+  buildSeedGrid();
+  const slo=$('#seedLenOpts');
+  if(slo)slo.addEventListener('click',e=>{const b=e.target.closest('[data-slen]');if(!b)return;seedLen=+b.dataset.slen;slo.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o===b));buildSeedGrid();});
   // cart qty + remove
   $$('#view [data-cq]').forEach(b=>b.addEventListener('click',()=>{const [key,d]=b.dataset.cq.split(':');const it=cart.find(i=>i.key===key);if(it)setItemQty(key,it.qty+(+d));}));
   $$('#view [data-rm]').forEach(b=>b.addEventListener('click',()=>removeItem(b.dataset.rm)));
