@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IRONSEED — Bank-Grade Metal Backup for Your Crypto Seed Phrase</title>
+<meta name="description" content="IRONSEED engraves your crypto recovery phrase onto indestructible marine-grade steel. Fireproof, waterproof, corrosion-proof. Bank-grade security, forever offline." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ THEME TOKENS ============ */
+:root{
+  --accent:#1e5fd6; --accent-2:#2f80ed; --accent-3:#38bdf8;
+  --ok:#0f9d63; --warn:#e0564f;
+  --radius:18px; --maxw:1180px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --display:'Space Grotesk','Inter',sans-serif;
+}
+/* LIGHT — luxury private-bank */
+html[data-theme="light"]{
+  --bg:#e9eef6; --bg-grad:radial-gradient(ellipse 90% 60% at 50% -10%,#ffffff,#e6ecf5 60%);
+  --surface:#f5f8fc; --card:#ffffff; --card-2:#f8fafd;
+  --line:rgba(20,48,90,.11); --line-strong:rgba(20,48,90,.16);
+  --text:#0d2038; --heading:#0a1a30; --muted:#4d5f7a; --muted-2:#8493ab;
+  --accent-soft:rgba(30,95,214,.08); --accent-ring:rgba(30,95,214,.22);
+  --nav-bg:rgba(245,248,252,.82); --nav-border:rgba(20,48,90,.10);
+  --shadow-sm:0 2px 8px -2px rgba(20,48,90,.14);
+  --shadow:0 22px 50px -26px rgba(20,48,90,.30);
+  --shadow-lg:0 40px 80px -34px rgba(20,48,90,.42);
+  --glow-1:rgba(47,128,237,.16); --glow-2:rgba(56,189,248,.12);
+  --grid-line:rgba(20,48,90,.055);
+  --plate-1:#dbe4f0; --plate-2:#9fb2ca; --plate-3:#ffffff; --plate-4:#8ea3bd; --plate-5:#c9d6e6;
+  --pill-bg:rgba(30,95,214,.07);
+  --hero-grad-a:#1e5fd6; --hero-grad-b:#38bdf8;
+  --footer-bg:#0c1c33; --footer-text:#c4d2e6; --footer-muted:#7f92ad; --footer-line:rgba(255,255,255,.10);
+}
+/* DARK — vault */
+html[data-theme="dark"]{
+  --bg:#050b18; --bg-grad:radial-gradient(ellipse 90% 60% at 50% -10%,#0b1a30,#050b18 60%);
+  --surface:#0a1830; --card:#0c1d38; --card-2:#0a1a33;
+  --line:rgba(139,169,214,.14); --line-strong:rgba(139,169,214,.22);
+  --text:#e9f0fa; --heading:#ffffff; --muted:#94a8c6; --muted-2:#6f83a3;
+  --accent-soft:rgba(59,130,246,.14); --accent-ring:rgba(59,130,246,.4);
+  --nav-bg:rgba(7,18,35,.82); --nav-border:rgba(139,169,214,.14);
+  --shadow-sm:0 2px 10px -2px rgba(0,0,0,.5);
+  --shadow:0 24px 50px -24px rgba(0,0,0,.7);
+  --shadow-lg:0 40px 80px -30px rgba(0,0,0,.8);
+  --glow-1:rgba(59,130,246,.35); --glow-2:rgba(56,189,248,.18);
+  --grid-line:rgba(139,169,214,.10);
+  --plate-1:#d7e1ee; --plate-2:#9fb2ca; --plate-3:#eef4fb; --plate-4:#8ea3bd; --plate-5:#c4d1e2;
+  --pill-bg:rgba(59,130,246,.14);
+  --hero-grad-a:#8ab4ff; --hero-grad-b:#38bdf8;
+  --footer-bg:transparent; --footer-text:#94a8c6; --footer-muted:#6f83a3; --footer-line:rgba(139,169,214,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s ease,color .3s ease}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.12;letter-spacing:-.02em;color:var(--heading)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);background:var(--pill-bg);border:1px solid var(--accent-ring);padding:7px 14px;border-radius:100px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 12px var(--accent-3)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap;font-family:var(--font)}
+.btn-primary{background:linear-gradient(180deg,#3f83f0,#1e5fd6);color:#fff;box-shadow:0 12px 30px -10px var(--accent-ring),inset 0 1px 0 rgba(255,255,255,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px var(--accent-ring)}
+.btn-ghost{background:var(--card-2);border-color:var(--line-strong);color:var(--text)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--accent-ring)}
+.btn-sm{padding:10px 18px;font-size:14px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+.section{padding:104px 0;position:relative}
+.section.tight{padding:70px 0}
+.center{text-align:center}
+.section-head{max-width:700px;margin:0 auto 58px}
+h2.title{font-size:clamp(30px,4.6vw,48px);margin:18px 0 16px}
+.lead{color:var(--muted);font-size:clamp(16px,2vw,19px)}
+.muted{color:var(--muted)}
+
+/* glows + grid */
+.bg-glow{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bg-glow::before,.bg-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(120px)}
+.bg-glow::before{width:600px;height:600px;background:radial-gradient(circle,var(--glow-1),transparent 70%);top:-220px;right:-120px}
+.bg-glow::after{width:520px;height:520px;background:radial-gradient(circle,var(--glow-2),transparent 70%);bottom:-160px;left:-140px}
+.grid-overlay{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%)}
+
+/* ============ NAV ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:200;transition:all .3s}
+header.scrolled{background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border)}
+nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.04em;cursor:pointer}
+.brand .mark{width:34px;height:34px;flex:0 0 auto}
+.brand b{color:var(--heading)} .brand span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:14.5px;color:var(--muted);font-weight:500;transition:color .2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--heading)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.icon-btn{width:42px;height:42px;border-radius:11px;border:1px solid var(--line-strong);background:var(--card-2);color:var(--text);display:grid;place-items:center;cursor:pointer;position:relative;transition:border-color .2s,transform .2s}
+.icon-btn:hover{border-color:var(--accent-ring);transform:translateY(-1px)}
+.cart-count{position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;font-family:var(--display);border:2px solid var(--bg)}
+.cart-count.hidden{display:none}
+.menu-btn{display:none}
+@media(max-width:940px){.nav-links{display:none} .nav-cta .btn-ghost{display:none}}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:168px 0 88px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(38px,6vw,66px);margin:22px 0 22px}
+.hero h1 .grad{background:linear-gradient(120deg,var(--hero-grad-a),var(--hero-grad-b) 60%,var(--hero-grad-a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:540px;margin-bottom:32px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.hero-trust{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.hero-trust .item{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted)}
+.hero-trust .item svg{color:var(--ok);flex:0 0 auto}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:38px}.hero{padding:132px 0 56px}.hero-visual{order:-1}}
+
+/* plate visual */
+.plate-stage{position:relative;perspective:1400px}
+.plate-float{animation:float 6s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes float{0%,100%{transform:translateY(0) rotateX(6deg) rotateY(-12deg)}50%{transform:translateY(-15px) rotateX(6deg) rotateY(-9deg)}}
+.plate-shadow{position:absolute;left:8%;right:8%;bottom:-24px;height:42px;background:radial-gradient(ellipse,rgba(10,26,51,.4),transparent 70%);filter:blur(11px);z-index:0}
+.plate-badge{position:absolute;z-index:5;background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--line-strong);border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:11px;box-shadow:var(--shadow)}
+.plate-badge .ic{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent);flex:0 0 auto}
+.plate-badge .t{font-size:12px;color:var(--muted);line-height:1.2}
+.plate-badge .t b{display:block;color:var(--heading);font-size:14px;font-family:var(--display)}
+.badge-1{top:6%;left:-18px;animation:float 5s ease-in-out infinite}
+.badge-2{bottom:10%;right:-14px;animation:float 6.5s ease-in-out .4s infinite}
+
+/* trust bar */
+.trustbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;background:var(--surface)}
+.trust-inner{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.trust-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
+.trust-logos{display:flex;align-items:center;gap:36px;flex-wrap:wrap;opacity:.85}
+.trust-logos .lg{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;text-align:center;box-shadow:var(--shadow-sm)}
+.stat .n{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--accent)}
+.stat .l{color:var(--muted);font-size:14px;margin-top:6px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* generic cols */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:820px){.cols-2{grid-template-columns:1fr}}
+.risk-card{border:1px solid var(--line);border-radius:var(--radius);padding:32px;background:var(--card);box-shadow:var(--shadow-sm)}
+.risk-card.safe{border-color:var(--accent-ring)}
+.risk-card h3{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.risk-list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.risk-list li{display:flex;gap:12px;color:var(--muted);font-size:15px;align-items:flex-start}
+.risk-list .x{color:var(--warn);flex:0 0 auto;margin-top:2px;font-weight:700}
+.risk-list .c{color:var(--ok);flex:0 0 auto;margin-top:2px;font-weight:700}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;box-shadow:var(--shadow-sm)}
+.step .num{font-family:var(--display);font-size:15px;font-weight:700;color:#fff;background:linear-gradient(180deg,#3f83f0,#1e5fd6);width:40px;height:40px;border-radius:11px;display:grid;place-items:center;margin-bottom:20px}
+.step h3{font-size:20px;margin-bottom:10px}
+.step p{color:var(--muted);font-size:15px}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.features{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;transition:transform .3s,border-color .3s,box-shadow .3s;box-shadow:var(--shadow-sm)}
+.feature:hover{transform:translateY(-5px);border-color:var(--accent-ring);box-shadow:var(--shadow)}
+.feature .ic{width:52px;height:52px;border-radius:13px;background:var(--accent-soft);border:1px solid var(--accent-ring);display:grid;place-items:center;color:var(--accent);margin-bottom:20px}
+.feature h3{font-size:18.5px;margin-bottom:9px}
+.feature p{color:var(--muted);font-size:14.5px}
+
+/* showcase / spec */
+.showcase{display:grid;grid-template-columns:.95fr 1.05fr;gap:54px;align-items:center}
+@media(max-width:860px){.showcase{grid-template-columns:1fr;gap:38px}}
+.spec-list{display:flex;flex-direction:column;margin-top:14px}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.spec-row .k{color:var(--muted);font-size:15px;display:flex;align-items:center;gap:11px}
+.spec-row .k svg{color:var(--accent)}
+.spec-row .v{font-family:var(--display);font-weight:600;color:var(--heading);font-size:15.5px}
+
+/* security band */
+.sec-band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:900px){.sec-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.sec-grid{grid-template-columns:1fr}}
+.sec-item{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow-sm)}
+.sec-item .ic{color:var(--accent);margin-bottom:16px}
+.sec-item h3{font-size:17px;margin-bottom:8px}
+.sec-item p{color:var(--muted);font-size:14px}
+
+/* pricing / product cards */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+@media(max-width:900px){.pricing{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+.price-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 30px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
+.price-card.featured{border-color:var(--accent-ring);box-shadow:var(--shadow)}
+.price-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#3f83f0,#1e5fd6);color:#fff;font-size:12px;font-weight:600;padding:6px 16px;border-radius:100px;letter-spacing:.04em}
+.price-card h3{font-size:20px;margin-bottom:6px}
+.price-card .desc{color:var(--muted);font-size:14px;min-height:40px}
+.price-card .amount{font-family:var(--display);font-size:44px;font-weight:700;color:var(--heading);margin:16px 0 4px}
+.price-card .amount span{font-size:16px;color:var(--muted);font-weight:500}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:12px;margin:22px 0 28px}
+.price-feats li{display:flex;gap:11px;font-size:14.5px;color:var(--text);align-items:flex-start}
+.price-feats svg{color:var(--ok);flex:0 0 auto;margin-top:3px}
+.price-card .btn{margin-top:auto}
+
+/* testimonials */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm)}
+.tcard .stars{color:#f0a020;margin-bottom:16px;letter-spacing:2px}
+.tcard p{color:var(--text);font-size:15px;margin-bottom:22px}
+.tcard .who{display:flex;align-items:center;gap:13px}
+.tcard .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1e5fd6,#38bdf8);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:#fff;font-size:15px}
+.tcard .who b{display:block;color:var(--heading);font-size:14.5px}
+.tcard .who span{color:var(--muted);font-size:13px}
+
+/* FAQ */
+.faq{max-width:820px;margin:0 auto}
+.faq-item{border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow-sm)}
+.faq-q{width:100%;text-align:left;background:none;border:0;color:var(--heading);font-family:var(--display);font-weight:600;font-size:16.5px;padding:22px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q .pm{flex:0 0 auto;transition:transform .3s;color:var(--accent)}
+.faq-item.open .faq-q .pm{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 24px 22px;color:var(--muted);font-size:15px}
+
+/* CTA band */
+.cta-band{position:relative;overflow:hidden;border-radius:26px;padding:60px 48px;text-align:center;background:linear-gradient(135deg,#123a7a,#0c1c33);border:1px solid var(--accent-ring)}
+.cta-band h2{font-size:clamp(28px,4vw,42px);margin-bottom:16px;color:#fff}
+.cta-band p{color:#c4d2e6;max-width:520px;margin:0 auto 30px;font-size:17px}
+.cta-band .hero-cta{justify-content:center}
+
+/* ============ PAGE HEADER ============ */
+.page-head{position:relative;padding:150px 0 40px;overflow:hidden}
+.page-head .eyebrow{margin-bottom:16px}
+.page-head h1{font-size:clamp(32px,5vw,52px)}
+.page-head p{color:var(--muted);font-size:18px;max-width:640px;margin-top:14px}
+.breadcrumb{display:flex;gap:8px;align-items:center;color:var(--muted-2);font-size:13.5px;margin-bottom:18px}
+.breadcrumb a{cursor:pointer}.breadcrumb a:hover{color:var(--accent)}
+
+/* ============ PRODUCTS LISTING ============ */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.prod-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
+.prod-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s,border-color .3s}
+.prod-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--accent-ring)}
+.prod-media{position:relative;padding:34px 26px;background:linear-gradient(160deg,var(--surface),var(--card-2));border-bottom:1px solid var(--line)}
+.prod-media .ribbon{position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;padding:5px 12px;border-radius:100px}
+.prod-body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+.prod-body h3{font-size:20px;margin-bottom:6px;cursor:pointer}
+.prod-body .p-desc{color:var(--muted);font-size:14px;margin-bottom:16px;flex:1}
+.prod-price{font-family:var(--display);font-size:26px;font-weight:700;color:var(--heading);margin-bottom:16px}
+.prod-price span{font-size:13px;color:var(--muted);font-weight:500}
+.prod-actions{display:flex;gap:10px}
+
+/* ============ PRODUCT DETAIL ============ */
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media(max-width:860px){.pd{grid-template-columns:1fr;gap:30px}}
+.pd-media{position:sticky;top:100px;background:linear-gradient(160deg,var(--surface),var(--card-2));border:1px solid var(--line);border-radius:22px;padding:40px 34px;box-shadow:var(--shadow-sm)}
+@media(max-width:860px){.pd-media{position:static}}
+.pd h1{font-size:clamp(28px,4vw,40px);margin:8px 0 12px}
+.pd .price-lg{font-family:var(--display);font-size:38px;font-weight:700;color:var(--heading);margin:18px 0 6px}
+.pd .price-lg span{font-size:15px;color:var(--muted);font-weight:500}
+.rating{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-bottom:18px}
+.rating .stars{color:#f0a020;letter-spacing:1px}
+.pd-desc{color:var(--muted);font-size:16px;margin-bottom:24px}
+.opt-group{margin-bottom:22px}
+.opt-group .lbl{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px}
+.opt-row{display:flex;gap:10px;flex-wrap:wrap}
+.opt{border:1px solid var(--line-strong);background:var(--card-2);color:var(--text);padding:11px 18px;border-radius:11px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s}
+.opt:hover{border-color:var(--accent-ring)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line-strong);border-radius:11px;overflow:hidden}
+.qty button{width:42px;height:44px;background:var(--card-2);border:0;color:var(--text);font-size:19px;cursor:pointer;transition:background .2s}
+.qty button:hover{background:var(--accent-soft);color:var(--accent)}
+.qty input{width:52px;height:44px;text-align:center;border:0;background:transparent;color:var(--heading);font-family:var(--display);font-weight:600;font-size:16px}
+.pd-buy{display:flex;gap:12px;margin:8px 0 22px;flex-wrap:wrap}
+.pd-assure{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:20px}
+.pd-assure .a{display:flex;gap:11px;align-items:center;color:var(--muted);font-size:14px}
+.pd-assure .a svg{color:var(--ok);flex:0 0 auto}
+.pd-tabs{margin-top:24px;border-top:1px solid var(--line);padding-top:24px}
+.pd-includes{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pd-includes li{display:flex;gap:9px;font-size:14px;color:var(--text);align-items:flex-start}
+.pd-includes svg{color:var(--accent);flex:0 0 auto;margin-top:3px}
+@media(max-width:520px){.pd-includes{grid-template-columns:1fr}}
+
+/* ============ CART ============ */
+.cart-layout{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+@media(max-width:860px){.cart-layout{grid-template-columns:1fr}}
+.cart-items{display:flex;flex-direction:column;gap:14px}
+.cart-row{display:grid;grid-template-columns:88px 1fr auto;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow-sm)}
+.cart-thumb{width:88px;height:74px;border-radius:12px;background:linear-gradient(160deg,var(--surface),var(--card-2));border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.cart-info h4{font-size:16px;margin-bottom:3px}
+.cart-info .meta{color:var(--muted);font-size:13px}
+.cart-info .rm{color:var(--warn);font-size:13px;cursor:pointer;margin-top:7px;display:inline-flex;gap:5px;align-items:center;background:none;border:0;font-family:var(--font)}
+.cart-info .rm:hover{text-decoration:underline}
+.cart-right{text-align:right;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
+.cart-right .line-price{font-family:var(--display);font-weight:700;color:var(--heading);font-size:18px}
+.summary{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;position:sticky;top:100px;box-shadow:var(--shadow-sm)}
+.summary h3{font-size:19px;margin-bottom:18px}
+.sum-row{display:flex;justify-content:space-between;padding:10px 0;color:var(--muted);font-size:15px}
+.sum-row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:16px;color:var(--heading);font-family:var(--display);font-weight:700;font-size:20px}
+.promo{display:flex;gap:8px;margin:16px 0}
+.promo input{flex:1;border:1px solid var(--line-strong);background:var(--card-2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:var(--font);font-size:14px}
+.promo input:focus{outline:none;border-color:var(--accent)}
+.empty-state{text-align:center;padding:70px 20px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-sm)}
+.empty-state .ic{width:70px;height:70px;border-radius:18px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 22px}
+.empty-state h3{font-size:22px;margin-bottom:10px}
+.empty-state p{color:var(--muted);margin-bottom:24px}
+
+/* ============ CHECKOUT ============ */
+.checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start}
+@media(max-width:900px){.checkout-layout{grid-template-columns:1fr}}
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:20px;box-shadow:var(--shadow-sm)}
+.form-card h3{font-size:18px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.form-card h3 .step-dot{width:26px;height:26px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:13px;font-family:var(--display);font-weight:700}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;font-weight:500;color:var(--muted)}
+.field input,.field select{border:1px solid var(--line-strong);background:var(--card-2);border-radius:11px;padding:13px 15px;color:var(--text);font-family:var(--font);font-size:15px;transition:border-color .2s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.field input.err{border-color:var(--warn)}
+.field .msg{font-size:12px;color:var(--warn);min-height:14px}
+.pay-methods{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.pay-opt{flex:1;min-width:120px;border:1px solid var(--line-strong);background:var(--card-2);border-radius:12px;padding:14px;cursor:pointer;text-align:center;font-size:14px;font-weight:500;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px}
+.pay-opt.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.pay-opt svg{color:var(--accent)}
+.co-summary-item{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.co-summary-item .n{color:var(--text)} .co-summary-item .n small{display:block;color:var(--muted);font-size:12px}
+.co-summary-item .p{font-family:var(--display);font-weight:600;color:var(--heading);white-space:nowrap}
+.secure-note{display:flex;align-items:center;gap:9px;justify-content:center;color:var(--muted);font-size:13px;margin-top:14px}
+.secure-note svg{color:var(--ok)}
+
+/* ============ CONFIRMATION ============ */
+.confirm{max-width:620px;margin:0 auto;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:56px 40px;box-shadow:var(--shadow)}
+.confirm .check{width:88px;height:88px;border-radius:50%;background:var(--accent-soft);color:var(--ok);display:grid;place-items:center;margin:0 auto 26px}
+.confirm h1{font-size:34px;margin-bottom:12px}
+.confirm p{color:var(--muted);font-size:16px;margin-bottom:8px}
+.order-box{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:20px;margin:26px 0;text-align:left}
+.order-box .row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;color:var(--muted)}
+.order-box .row b{color:var(--heading);font-family:var(--display)}
+
+/* contact/about */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:16px;display:flex;gap:16px;box-shadow:var(--shadow-sm)}
+.info-card .ic{width:46px;height:46px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:0 0 auto}
+.info-card h4{font-size:16px;margin-bottom:4px}
+.info-card p{color:var(--muted);font-size:14px}
+.about-lead{max-width:760px;margin:0 auto 50px;text-align:center}
+.about-lead p{color:var(--muted);font-size:18px;line-height:1.7}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.values{grid-template-columns:1fr}}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--footer-bg);color:#fff;padding:14px 22px;border-radius:14px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;z-index:400;font-size:14.5px;font-weight:500;transition:transform .4s cubic-bezier(.2,.9,.3,1);border:1px solid rgba(255,255,255,.12)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast svg{color:#5ee0a0;flex:0 0 auto}
+
+/* ============ FOOTER ============ */
+footer{background:var(--footer-bg);border-top:1px solid var(--footer-line);padding:64px 0 36px;margin-top:30px;position:relative;z-index:2}
+html[data-theme="light"] footer{color:var(--footer-text)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+.foot-col h4{font-family:var(--display);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--footer-muted);margin-bottom:18px}
+.foot-col a{display:block;color:var(--footer-text);font-size:14.5px;margin-bottom:12px;transition:color .2s;cursor:pointer;opacity:.85}
+.foot-col a:hover{opacity:1;color:#fff}
+html[data-theme="light"] .foot-col a:hover{color:#fff}
+.foot-brand b{color:#fff}.foot-brand span{color:var(--accent-3)}
+.foot-about p{color:var(--footer-text);opacity:.8;font-size:14.5px;margin:16px 0 0;max-width:300px}
+.foot-news{display:flex;gap:8px;margin-top:18px;max-width:320px}
+.foot-news input{flex:1;border:1px solid var(--footer-line);background:rgba(255,255,255,.06);border-radius:10px;padding:11px 14px;color:#fff;font-family:var(--font);font-size:14px}
+.foot-news input::placeholder{color:var(--footer-muted)}
+.foot-news input:focus{outline:none;border-color:var(--accent-3)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:48px;padding-top:26px;border-top:1px solid var(--footer-line);color:var(--footer-muted);font-size:13.5px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+::selection{background:var(--accent-soft);color:var(--accent)}
+#view{min-height:60vh}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap">
+    <nav>
+      <div class="brand" data-nav="home">
+        <svg class="mark" viewBox="0 0 40 40" fill="none">
+          <rect x="2" y="2" width="36" height="36" rx="9" fill="url(#bg1)" stroke="#3b82f6" stroke-opacity=".5"/>
+          <path d="M20 9l9 5v8c0 5.5-3.8 8.9-9 10.5C14.8 30.9 11 27.5 11 22v-8l9-5z" fill="url(#bg2)" stroke="#8ab4ff" stroke-width="1.3"/>
+          <path d="M16.5 20.2l2.6 2.6 5-5.2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="bg1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#153560"/><stop offset="1" stop-color="#0a1830"/></linearGradient>
+            <linearGradient id="bg2" x1="11" y1="9" x2="29" y2="32"><stop stop-color="#1e5fd6"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+          </defs>
+        </svg>
+        <span><b>IRON</b>SEED</span>
+      </div>
+      <div class="nav-links">
+        <a data-nav="products">Shop</a>
+        <a data-nav="how">How it works</a>
+        <a data-nav="security">Security</a>
+        <a data-nav="faq">FAQ</a>
+        <a data-nav="about">About</a>
+      </div>
+      <div class="nav-cta">
+        <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme"></button>
+        <button class="icon-btn" data-nav="cart" title="Cart" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.5 9h-12L5 3H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>
+          <span class="cart-count hidden" id="cartCount">0</span>
+        </button>
+        <a class="btn btn-primary btn-sm" data-nav="products">Secure your seed</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-about">
+        <div class="brand foot-brand" data-nav="home" style="color:#fff">
+          <svg class="mark" viewBox="0 0 40 40" fill="none">
+            <rect x="2" y="2" width="36" height="36" rx="9" fill="url(#fbg1)" stroke="#3b82f6" stroke-opacity=".5"/>
+            <path d="M20 9l9 5v8c0 5.5-3.8 8.9-9 10.5C14.8 30.9 11 27.5 11 22v-8l9-5z" fill="url(#fbg2)" stroke="#8ab4ff" stroke-width="1.3"/>
+            <path d="M16.5 20.2l2.6 2.6 5-5.2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="fbg1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#153560"/><stop offset="1" stop-color="#0a1830"/></linearGradient>
+              <linearGradient id="fbg2" x1="11" y1="9" x2="29" y2="32"><stop stop-color="#1e5fd6"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+            </defs>
+          </svg>
+          <span><b>IRON</b>SEED</span>
+        </div>
+        <p>Bank-grade metal backup for your crypto recovery phrase. Fireproof, waterproof, and offline for life.</p>
+        <div class="foot-news">
+          <input type="email" placeholder="Your email for updates" id="newsEmail" />
+          <button class="btn btn-primary btn-sm" id="newsBtn">Join</button>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a data-nav="products">Shop plates</a>
+        <a data-nav="how">How it works</a>
+        <a data-nav="security">Security</a>
+        <a data-nav="faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a data-nav="about">About</a>
+        <a data-nav="contact">Contact</a>
+        <a data-nav="about">Reviews</a>
+        <a data-nav="how">Guides</a>
+      </div>
+      <div class="foot-col">
+        <h4>Support</h4>
+        <a data-nav="contact">Help center</a>
+        <a data-nav="contact">Shipping</a>
+        <a data-nav="faq">Warranty</a>
+        <a data-nav="contact">Returns</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 IRONSEED. All rights reserved.</span>
+      <span>Not affiliated with any wallet manufacturer. Self-custody is your responsibility.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="toastMsg">Added to cart</span></div>
+
+<script>
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+function sGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+/* ===== THEME ===== */
+const ICON_MOON='<svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+const ICON_SUN='<svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+let theme=sGet('is-theme')||'light';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);sSet('is-theme',t);$('#themeToggle').innerHTML=t==='light'?ICON_MOON:ICON_SUN;}
+applyTheme(theme);
+$('#themeToggle').addEventListener('click',()=>{theme=theme==='light'?'dark':'light';applyTheme(theme);});
+
+/* ===== DATA ===== */
+const money=n=>'$'+Number(n).toLocaleString('en-US');
+const CHECK='<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ARROW='<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const PRODUCTS=[
+  {id:'solo',name:'IRONSEED Solo',tagline:'For a single wallet, up to 24 words.',price:79,badge:'',words:12,rating:4.9,reviews:412,
+   desc:'A single marine-grade steel plate and everything you need to engrave one recovery phrase — entirely offline. The simplest way to make one wallet indestructible.',
+   includes:['1 × AISI 316L steel plate','Precision letter-stamping tool','Tamper-evident security seals','Quick-start engraving guide','Lifetime corrosion guarantee']},
+  {id:'vault',name:'IRONSEED Vault',tagline:'Redundant backup for serious holders.',price:149,badge:'Most popular',words:24,rating:5.0,reviews:1183,featured:true,
+   desc:'Two steel plates with a pro stamping kit and Shamir multi-share support — so you can split one seed across locations for true disaster-proof redundancy.',
+   includes:['2 × AISI 316L steel plates','Pro stamping kit + alignment jig','Shamir multi-share layout card','Fireproof storage sleeve','Tamper-evident security seals','Lifetime corrosion guarantee']},
+  {id:'institutional',name:'IRONSEED Institutional',tagline:'For funds, treasuries & estates.',price:499,badge:'Enterprise',words:24,rating:5.0,reviews:96,
+   desc:'A serialized set of five plates engineered for multi-signature and quorum custody, inheritance planning, and audited storage policies — with dedicated support.',
+   includes:['5 × serialized 316L steel plates','Multi-sig & quorum layout kit','Inheritance & custody policy templates','Fireproof carry case','Priority engraving support','Dedicated account manager']}
+];
+const byId=id=>PRODUCTS.find(p=>p.id===id);
+
+/* ===== CART ===== */
+let cart=[];
+try{cart=JSON.parse(sGet('is-cart')||'[]')}catch(e){cart=[]}
+function saveCart(){sSet('is-cart',JSON.stringify(cart));updateCartCount();}
+function cartQty(){return cart.reduce((s,i)=>s+i.qty,0);}
+function cartSubtotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0);}
+function updateCartCount(){const c=$('#cartCount');const q=cartQty();c.textContent=q;c.classList.toggle('hidden',q===0);}
+function addToCart(id,words,qty){
+  const p=byId(id);if(!p)return;
+  const key=id+'-'+words;
+  const ex=cart.find(i=>i.key===key);
+  if(ex){ex.qty+=qty;}else{cart.push({key,id,name:p.name,price:p.price,words,qty});}
+  saveCart();toast(qty+' × '+p.name+' added to cart');
+}
+function removeItem(key){cart=cart.filter(i=>i.key!==key);saveCart();render();}
+function setItemQty(key,q){const it=cart.find(i=>i.key===key);if(!it)return;it.qty=Math.max(1,q);saveCart();render();}
+
+/* ===== PLATE SVG ===== */
+const WORDS=['anchor','harvest','canyon','marble','ember','tundra','velvet','orbit','nectar','sonic','forge','vault','timber','signal','pilot','lunar','quartz','falcon','ridge','cobalt','harbor','zenith','onyx','delta'];
+function bigPlate(count){
+  count=count||22;
+  const per=Math.ceil(count/3);
+  let cells='';
+  const cols=[0,130,260];
+  for(let c=0;c<3;c++){
+    for(let r=0;r<per;r++){
+      const idx=c*per+r; if(idx>=count)break;
+      const n=String(idx+1).padStart(2,'0');
+      const y=104+r*24;
+      cells+=`<text x="${66+cols[c]}" y="${y}">${n} ${WORDS[idx%WORDS.length]}</text>`;
+    }
+  }
+  return `<svg viewBox="0 0 460 300" width="100%" role="img" aria-label="IRONSEED engraved steel plate">
+  <defs>
+    <linearGradient id="stl" x1="0" y1="0" x2="460" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="var(--plate-1)"/><stop offset=".25" stop-color="var(--plate-2)"/>
+      <stop offset=".5" stop-color="var(--plate-3)"/><stop offset=".72" stop-color="var(--plate-4)"/><stop offset="1" stop-color="var(--plate-5)"/>
+    </linearGradient>
+    <linearGradient id="edg" x1="0" y1="0" x2="0" y2="300"><stop stop-color="#6b7f9c"/><stop offset="1" stop-color="#465873"/></linearGradient>
+    <linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef4fb"/><stop offset="1" stop-color="#7d90ac"/></linearGradient>
+    <filter id="sft" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0a1830" flood-opacity="0.35"/></filter>
+  </defs>
+  <g filter="url(#sft)"><rect x="18" y="16" width="424" height="268" rx="20" fill="url(#edg)"/><rect x="18" y="12" width="424" height="268" rx="20" fill="url(#stl)"/></g>
+  <g stroke="#fff" stroke-opacity="0.10"><line x1="30" y1="40" x2="430" y2="40"/><line x1="30" y1="250" x2="430" y2="250"/></g>
+  <g>${[[42,36],[418,36],[42,256],[418,256]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8" fill="url(#scr)" stroke="#4a5c78"/><path d="M${x-4} ${y}h8M${x} ${y-4}v8" stroke="#4a5c78" stroke-width="1.3"/>`).join('')}</g>
+  <text x="66" y="66" font-family="Space Grotesk,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#3a4a63">IRONSEED · RECOVERY</text>
+  <g font-family="Space Grotesk,monospace" font-size="12.5" font-weight="600" fill="#39485f" letter-spacing="0.5">${cells}</g>
+  <path d="M60 12 L160 12 L60 280 L18 280 L18 210 Z" fill="#fff" opacity="0.10"/>
+  </svg>`;
+}
+function miniPlate(){
+  return `<svg viewBox="0 0 120 100" width="72" aria-hidden="true"><defs>
+    <linearGradient id="ms" x1="0" y1="0" x2="120" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="var(--plate-1)"/><stop offset=".5" stop-color="var(--plate-3)"/><stop offset="1" stop-color="var(--plate-5)"/></linearGradient></defs>
+    <rect x="6" y="8" width="108" height="84" rx="12" fill="url(#ms)" stroke="#8ea3bd" stroke-opacity=".5"/>
+    <g stroke="#39485f" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"><line x1="20" y1="30" x2="52" y2="30"/><line x1="20" y1="44" x2="60" y2="44"/><line x1="20" y1="58" x2="46" y2="58"/><line x1="20" y1="72" x2="56" y2="72"/><line x1="70" y1="30" x2="98" y2="30"/><line x1="70" y1="44" x2="92" y2="44"/><line x1="70" y1="58" x2="100" y2="58"/></g>
+    ${[[18,20],[102,20],[18,80],[102,80]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.4" fill="#eef4fb" stroke="#4a5c78"/>`).join('')}
+  </svg>`;
+}
+
+/* ===== SHARED PARTIALS ===== */
+function heroTrust(){return `<div class="hero-trust">
+  <div class="item">${CHECK} Fireproof to 1,400°C</div>
+  <div class="item">${CHECK} 100% offline &amp; air-gapped</div>
+  <div class="item">${CHECK} Lifetime guarantee</div></div>`;}
+function badgesHTML(){return `<div class="plate-badge badge-1"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2s7 3 7 9c0 5-3.5 8-7 11-3.5-3-7-6-7-11 0-6 7-9 7-9z" stroke="currentColor" stroke-width="1.7"/></svg></div><div class="t"><b>AISI 316L</b>Marine-grade steel</div></div>
+  <div class="plate-badge badge-2"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3c-3 4-6 5-6 5v5c0 4 3 6.5 6 8 3-1.5 6-4 6-8V8s-3-1-6-5z" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 12.5l1.8 1.8 3.4-3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t"><b>Tamper-evident</b>Sealed &amp; verified</div></div>`;}
+function pageHead(crumbs,eyebrow,title,sub){
+  const cb=crumbs.map((c,i)=>i<crumbs.length-1?`<a data-nav="${c.nav}">${c.label}</a><span>›</span>`:`<span>${c.label}</span>`).join('');
+  return `<section class="page-head"><div class="bg-glow"></div><div class="grid-overlay"></div><div class="wrap" style="position:relative;z-index:2">
+    <div class="breadcrumb">${cb}</div>
+    <span class="eyebrow"><span class="dot"></span>${eyebrow}</span>
+    <h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div></section>`;
+}
+function featureCards(){
+  const f=[
+    ['Fireproof','Withstands 1,400°C — well beyond a typical house fire. Steel keeps your words legible when everything around it is ash.','<path d="M12 3c-1 3-4 4-4 8a4 4 0 108 0c0-1-.5-2-1-2.5.2 1.2-.6 2-1.3 2C13 9 14 6 12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>'],
+    ['Waterproof','Floods, saltwater, humidity — no problem. 316L steel is fully corrosion-resistant and never rusts, warps or degrades.','<path d="M12 3c3 4 6 6.5 6 10a6 6 0 01-12 0c0-3.5 3-6 6-10z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>'],
+    ['Crush &amp; shock proof','Rated beyond 20 tons of pressure. Drop it, run it over, bury it — the engraving stays perfectly intact.','<path d="M4 12l4-8h8l4 8-8 8-8-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>'],
+    ['100% offline','Air-gapped by nature. No firmware, no chips, no connectivity — nothing that can be hacked, phished or updated.','<rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/>'],
+    ['Tamper-evident','Every kit ships with serialized security seals so you know instantly if a plate has ever been opened or handled.','<path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8 3.4-3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'],
+    ['Universally compatible','Works with any wallet — Ledger, Trezor, MetaMask and every BIP39 seed phrase from 12 to 24 words.','<path d="M12 3l2.5 6 6.5.5-5 4.2 1.6 6.3L12 16.8 6.4 20l1.6-6.3-5-4.2 6.5-.5L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>']
+  ];
+  return `<div class="features">${f.map(([t,d,ic])=>`<div class="feature reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none">${ic}</svg></div><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>`;
+}
+function ctaBand(){return `<section class="section tight"><div class="wrap"><div class="cta-band reveal"><div class="bg-glow"></div><div style="position:relative;z-index:2">
+  <span class="eyebrow"><span class="dot"></span>Secure your future</span>
+  <h2 style="margin-top:18px">Don't trust your crypto to paper.</h2>
+  <p>Forge your recovery phrase into steel today and never worry about fire, water, or time again.</p>
+  <div class="hero-cta"><a class="btn btn-primary" data-nav="products">Shop IRONSEED plates ${ARROW}</a><a class="btn btn-ghost" data-nav="faq">Read the FAQ</a></div>
+</div></div></div></section>`;}
+
+/* ===== VIEWS ===== */
+const views={};
+views.home=()=>`
+<section class="hero"><div class="bg-glow"></div><div class="grid-overlay"></div><div class="wrap"><div class="hero-grid">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="dot"></span>Bank-grade cold storage for your recovery phrase</span>
+    <h1>Your seed phrase,<br><span class="grad">forged in steel.</span></h1>
+    <p class="sub">Paper burns. Screenshots leak. Cloud backups get hacked. IRONSEED engraves your crypto recovery phrase onto aerospace-grade steel — fireproof, waterproof and offline for life.</p>
+    <div class="hero-cta"><a class="btn btn-primary" data-nav="products">Get your IRONSEED plate ${ARROW}</a><a class="btn btn-ghost" data-nav="how">See how it works</a></div>
+    ${heroTrust()}
+  </div>
+  <div class="hero-visual"><div class="plate-stage"><div class="plate-shadow"></div><div class="plate-float">${bigPlate(22)}</div>${badgesHTML()}</div></div>
+</div></div></section>
+
+<div class="trustbar"><div class="wrap trust-inner"><span class="trust-label">Protecting keys for holders &amp; institutions</span>
+<div class="trust-logos"><span class="lg">◈ NORTHVAULT</span><span class="lg">⬡ Chainguard</span><span class="lg">▣ Meridian Capital</span><span class="lg">◆ ColdStack</span><span class="lg">✦ Helix DAO</span></div></div></div>
+
+<section class="section tight"><div class="wrap"><div class="stats">
+  <div class="stat reveal"><div class="n">$68B+</div><div class="l">Crypto lost to forgotten &amp; destroyed keys</div></div>
+  <div class="stat reveal"><div class="n">1,400°C</div><div class="l">Heat resistance — survives house fires</div></div>
+  <div class="stat reveal"><div class="n">100+ yrs</div><div class="l">Corrosion-free lifespan, guaranteed</div></div>
+  <div class="stat reveal"><div class="n">0</div><div class="l">Bytes ever stored online or on a server</div></div>
+</div></div></section>
+
+<section class="section" style="padding-top:20px"><div class="wrap">
+  <div class="section-head center reveal"><span class="eyebrow"><span class="dot"></span>The backup problem</span>
+  <h2 class="title">Not your keys, not your coins.<br>Not your backup, not your keys.</h2>
+  <p class="lead">Your entire portfolio lives or dies by 12–24 words. The way most people store them is the single biggest point of failure in self-custody.</p></div>
+  <div class="cols-2">
+    <div class="risk-card reveal"><h3>😰 How most people back up today</h3><ul class="risk-list">
+      <li><span class="x">✕</span><span><b>Paper &amp; sticky notes</b> — burn in fires, dissolve in floods, fade and tear over years.</span></li>
+      <li><span class="x">✕</span><span><b>Screenshots &amp; photos</b> — silently synced to the cloud, one breach from exposure.</span></li>
+      <li><span class="x">✕</span><span><b>Password managers &amp; notes apps</b> — online, hackable, tied to a company that can fail.</span></li>
+      <li><span class="x">✕</span><span><b>Memory alone</b> — one accident or lapse and the funds are gone forever.</span></li></ul></div>
+    <div class="risk-card safe reveal"><h3>🛡️ The IRONSEED way</h3><ul class="risk-list">
+      <li><span class="c">✓</span><span><b>Engraved in solid steel</b> — no ink to fade, no paper to burn, no battery to die.</span></li>
+      <li><span class="c">✓</span><span><b>Completely offline</b> — air-gapped by design. Nothing to hack, phish, or intercept.</span></li>
+      <li><span class="c">✓</span><span><b>Survives disaster</b> — fire, flood, corrosion, crushing and time itself.</span></li>
+      <li><span class="c">✓</span><span><b>You hold it, you own it</b> — no accounts, no subscriptions, no third party.</span></li></ul></div>
+  </div>
+</div></section>
+
+<section class="section sec-band"><div class="wrap">
+  <div class="section-head center reveal"><span class="eyebrow"><span class="dot"></span>Built to survive anything</span>
+  <h2 class="title">Engineered like a vault.<br>Priced like peace of mind.</h2>
+  <p class="lead">Every IRONSEED plate is cut from AISI 316L marine-grade stainless steel and tested against the disasters that destroy ordinary backups.</p></div>
+  ${featureCards()}
+</div></section>
+
+<section class="section"><div class="wrap">
+  <div class="section-head center reveal"><span class="eyebrow"><span class="dot"></span>Choose your protection</span>
+  <h2 class="title">One-time cost. Lifetime protection.</h2>
+  <p class="lead">No subscriptions. No accounts. Pay once and secure your keys for generations.</p></div>
+  <div class="pricing">${PRODUCTS.map(p=>priceCard(p)).join('')}</div>
+</div></section>
+
+<section class="section tight"><div class="wrap">
+  <div class="section-head center reveal"><span class="eyebrow"><span class="dot"></span>Trusted by holders</span><h2 class="title">Peace of mind, engraved</h2></div>
+  ${testimonials()}
+</div></section>
+${ctaBand()}`;
+
+function priceCard(p){
+  return `<div class="price-card ${p.featured?'featured':''} reveal">${p.badge?`<div class="price-tag">${p.badge.toUpperCase()}</div>`:''}
+    <h3>${p.name.replace('IRONSEED ','')}</h3><p class="desc">${p.tagline}</p>
+    <div class="amount">${p.id==='institutional'?money(p.price):money(p.price)} <span>one-time</span></div>
+    <ul class="price-feats">${p.includes.slice(0,4).map(i=>`<li>${CHECK}${i}</li>`).join('')}</ul>
+    <div style="display:flex;gap:10px;margin-top:auto"><a class="btn btn-ghost btn-sm" data-nav="product/${p.id}">Details</a><button class="btn ${p.featured?'btn-primary':'btn-ghost'} btn-sm" style="flex:1" data-add="${p.id}">Add to cart</button></div>
+  </div>`;
+}
+function testimonials(){
+  const t=[['DR','Daniel R.','Long-term Bitcoin holder',"I've been in crypto since 2016 and lost a paper backup in a flooded basement. IRONSEED is the first backup I actually trust to survive me."],
+    ['MK','Maya K.','Ops lead, crypto fund',"We moved our treasury's cold storage to IRONSEED plates with a Shamir split. The build quality feels genuinely institutional."],
+    ['AT','Adam T.','Self-custody advocate',"Set it up offline in ten minutes, sealed it, put it in the safe. No app, no account, nothing to hack. Exactly how a backup should be."]];
+  return `<div class="tgrid">${t.map(([av,n,r,q])=>`<div class="tcard reveal"><div class="stars">★★★★★</div><p>"${q}"</p><div class="who"><div class="av">${av}</div><div><b>${n}</b><span>${r}</span></div></div></div>`).join('')}</div>`;
+}
+
+views.products=()=>`
+${pageHead([{label:'Home',nav:'home'},{label:'Shop'}],'Shop','Choose your IRONSEED kit','Solid steel backups for every level of holder — from a single wallet to a full institutional treasury. One-time cost, lifetime guarantee.')}
+<section class="section" style="padding-top:26px"><div class="wrap">
+  <div class="prod-grid">${PRODUCTS.map(p=>`
+    <div class="prod-card reveal">
+      <div class="prod-media">${p.badge?`<span class="ribbon">${p.badge}</span>`:''}<div style="transform:rotate(-3deg)">${bigPlate(p.words>=24?24:12)}</div></div>
+      <div class="prod-body">
+        <h3 data-nav="product/${p.id}">${p.name}</h3>
+        <div class="rating" style="margin-bottom:12px"><span class="stars">★★★★★</span> ${p.rating} · ${p.reviews.toLocaleString()} reviews</div>
+        <p class="p-desc">${p.tagline}</p>
+        <div class="prod-price">${money(p.price)} <span>one-time</span></div>
+        <div class="prod-actions"><a class="btn btn-ghost btn-sm" data-nav="product/${p.id}">View details</a><button class="btn btn-primary btn-sm" style="flex:1" data-add="${p.id}">Add to cart</button></div>
+      </div>
+    </div>`).join('')}</div>
+</div></section>
+<section class="section sec-band"><div class="wrap"><div class="section-head center reveal"><span class="eyebrow"><span class="dot"></span>Every plate includes</span><h2 class="title">The same uncompromising core</h2></div>${featureCards()}</div></section>
+${ctaBand()}`;
+
+views.product=(id)=>{
+  const p=byId(id);if(!p)return views.products();
+  const wordOpts=p.id==='solo'?[12,24]:[12,18,24];
+  return `${pageHead([{label:'Home',nav:'home'},{label:'Shop',nav:'products'},{label:p.name}],'Product',p.name,'')}
+  <section class="section" style="padding-top:20px"><div class="wrap"><div class="pd">
+    <div class="pd-media reveal"><div class="plate-stage"><div class="plate-float">${bigPlate(p.words>=24?24:12)}</div></div></div>
+    <div class="pd-info reveal">
+      <span class="eyebrow"><span class="dot"></span>${p.tagline}</span>
+      <h1>${p.name}</h1>
+      <div class="rating"><span class="stars">★★★★★</span> ${p.rating} · ${p.reviews.toLocaleString()} verified reviews</div>
+      <div class="price-lg">${money(p.price)} <span>one-time · free shipping</span></div>
+      <p class="pd-desc">${p.desc}</p>
+      <div class="opt-group"><div class="lbl">Seed length</div><div class="opt-row" id="wordOpts">${wordOpts.map((w,i)=>`<button class="opt ${i===wordOpts.length-1?'sel':''}" data-word="${w}">${w} words</button>`).join('')}</div></div>
+      <div class="opt-group"><div class="lbl">Quantity</div>
+        <div class="qty"><button data-qty="-1">−</button><input id="qtyInput" value="1" readonly /><button data-qty="1">+</button></div>
+      </div>
+      <div class="pd-buy">
+        <button class="btn btn-primary" id="pdAdd" data-add-detail="${p.id}">Add to cart · <span id="pdPrice">${money(p.price)}</span></button>
+        <button class="btn btn-ghost" id="pdBuy">Buy now</button>
+      </div>
+      <div class="pd-assure">
+        <div class="a">${CHECK} Free, insured worldwide shipping in tamper-evident packaging</div>
+        <div class="a">${CHECK} 30-day returns · lifetime corrosion &amp; legibility guarantee</div>
+        <div class="a">${CHECK} We never see or store your recovery words — you engrave offline</div>
+      </div>
+      <div class="pd-tabs"><div class="lbl" style="margin-bottom:14px">What's in the box</div>
+        <ul class="pd-includes">${p.includes.map(i=>`<li>${CHECK}${i}</li>`).join('')}</ul>
+      </div>
+    </div>
+  </div></div></section>
+  <section class="section sec-band"><div class="wrap"><div class="section-head center reveal"><h2 class="title">Tested against the worst</h2></div>${specShowcase()}</div></section>
+  ${ctaBand()}`;
+};
+function specShowcase(){
+  const rows=[['Material','AISI 316L Marine Stainless Steel'],['Heat resistance','1,400°C / 2,552°F'],['Crush rating','&gt; 20 tons'],['Capacity','12 · 18 · 24-word BIP39'],['Rated lifespan','100+ years, corrosion-free'],['Data stored online','None. Ever.']];
+  return `<div class="showcase"><div class="reveal"><div class="plate-stage">${bigPlate(24)}</div></div>
+  <div class="reveal"><span class="eyebrow"><span class="dot"></span>Technical specification</span><h2 class="title" style="font-size:clamp(24px,3.2vw,34px);margin:14px 0 4px">Made to outlast the coins it protects</h2>
+  <div class="spec-list">${rows.map(([k,v])=>`<div class="spec-row"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('')}</div></div></div>`;
+}
+
+views.cart=()=>{
+  if(!cart.length){return `${pageHead([{label:'Home',nav:'home'},{label:'Cart'}],'Cart','Your cart','')}
+  <section class="section" style="padding-top:20px"><div class="wrap"><div class="empty-state reveal">
+    <div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.5 9h-12L5 3H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg></div>
+    <h3>Your cart is empty</h3><p>Add an IRONSEED kit to protect your recovery phrase for life.</p>
+    <a class="btn btn-primary" data-nav="products">Browse plates ${ARROW}</a>
+  </div></div></section>`;}
+  const sub=cartSubtotal();const ship=0;const tax=Math.round(sub*0.0)  ;const total=sub+ship;
+  return `${pageHead([{label:'Home',nav:'home'},{label:'Cart'}],'Cart','Your cart','')}
+  <section class="section" style="padding-top:20px"><div class="wrap"><div class="cart-layout">
+    <div class="cart-items">${cart.map(i=>`
+      <div class="cart-row">
+        <div class="cart-thumb">${miniPlate()}</div>
+        <div class="cart-info"><h4>${i.name}</h4><div class="meta">${i.words}-word engraving · ${money(i.price)} each</div>
+          <button class="rm" data-rm="${i.key}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Remove</button></div>
+        <div class="cart-right"><div class="qty"><button data-cq="${i.key}:-1">−</button><input value="${i.qty}" readonly /><button data-cq="${i.key}:1">+</button></div>
+          <div class="line-price">${money(i.price*i.qty)}</div></div>
+      </div>`).join('')}
+    </div>
+    <div class="summary">
+      <h3>Order summary</h3>
+      <div class="sum-row"><span>Subtotal (${cartQty()} items)</span><span>${money(sub)}</span></div>
+      <div class="sum-row"><span>Shipping</span><span style="color:var(--ok)">Free</span></div>
+      <div class="promo"><input placeholder="Promo code" id="promo" /><button class="btn btn-ghost btn-sm" id="promoBtn">Apply</button></div>
+      <div class="sum-row total"><span>Total</span><span>${money(total)}</span></div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px" data-nav="checkout">Proceed to checkout ${ARROW}</button>
+      <div class="secure-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg> Encrypted, secure checkout</div>
+    </div>
+  </div></div></section>`;
+};
+
+views.checkout=()=>{
+  if(!cart.length)return views.cart();
+  const sub=cartSubtotal();const total=sub;
+  return `${pageHead([{label:'Home',nav:'home'},{label:'Cart',nav:'cart'},{label:'Checkout'}],'Checkout','Secure checkout','')}
+  <section class="section" style="padding-top:20px"><div class="wrap"><form id="coForm" class="checkout-layout" novalidate>
+    <div class="co-main">
+      <div class="form-card"><h3><span class="step-dot">1</span> Contact</h3>
+        <div class="field full"><label>Email address</label><input type="email" name="email" placeholder="you@example.com" required /><span class="msg"></span></div>
+      </div>
+      <div class="form-card"><h3><span class="step-dot">2</span> Shipping address</h3>
+        <div class="fgrid">
+          <div class="field"><label>First name</label><input name="first" required /><span class="msg"></span></div>
+          <div class="field"><label>Last name</label><input name="last" required /><span class="msg"></span></div>
+          <div class="field full"><label>Address</label><input name="addr" required /><span class="msg"></span></div>
+          <div class="field"><label>City</label><input name="city" required /><span class="msg"></span></div>
+          <div class="field"><label>Postal code</label><input name="zip" required /><span class="msg"></span></div>
+          <div class="field full"><label>Country</label>
+            <select name="country" required><option value="">Select country…</option><option>United States</option><option>United Kingdom</option><option>Israel</option><option>Germany</option><option>Canada</option><option>Australia</option><option>United Arab Emirates</option><option>Other</option></select><span class="msg"></span></div>
+        </div>
+      </div>
+      <div class="form-card"><h3><span class="step-dot">3</span> Payment</h3>
+        <div class="pay-methods">
+          <div class="pay-opt sel" data-pay="card"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M2.5 9.5h19" stroke="currentColor" stroke-width="1.7"/></svg>Card</div>
+          <div class="pay-opt" data-pay="crypto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.5 8.5h4a2 2 0 010 4h-4zm0 4h4.3a2 2 0 010 4H9.5zM11 7v1.5M11 16.5V18M13 7v1.5M13 16.5V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Crypto</div>
+          <div class="pay-opt" data-pay="paypal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 19l2-14h6.5a3.5 3.5 0 010 7H10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>PayPal</div>
+        </div>
+        <div id="payFields">
+          <div class="field full"><label>Card number</label><input name="card" inputmode="numeric" placeholder="1234 5678 9012 3456" required /><span class="msg"></span></div>
+          <div class="fgrid"><div class="field"><label>Expiry</label><input name="exp" placeholder="MM / YY" required /><span class="msg"></span></div>
+          <div class="field"><label>CVC</label><input name="cvc" placeholder="123" required /><span class="msg"></span></div></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="placeOrder">Place order · <span>${money(total)}</span></button>
+      <div class="secure-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg> Your payment details are encrypted. This is a demo store — no real charge is made.</div>
+    </div>
+    <div class="summary" style="align-self:start">
+      <h3>Order summary</h3>
+      ${cart.map(i=>`<div class="co-summary-item"><div class="n">${i.name} <small>${i.words}-word · qty ${i.qty}</small></div><div class="p">${money(i.price*i.qty)}</div></div>`).join('')}
+      <div class="sum-row" style="margin-top:8px"><span>Subtotal</span><span>${money(sub)}</span></div>
+      <div class="sum-row"><span>Shipping</span><span style="color:var(--ok)">Free</span></div>
+      <div class="sum-row total"><span>Total</span><span>${money(total)}</span></div>
+    </div>
+  </form></div></section>`;
+};
+
+views.confirm=()=>{
+  const order=sGet('is-lastorder');
+  let o={};try{o=JSON.parse(order||'{}')}catch(e){}
+  if(!o.id)return views.home();
+  return `<section class="section" style="padding-top:150px"><div class="wrap"><div class="confirm reveal">
+    <div class="check"><svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1>Order confirmed</h1>
+    <p>Thank you, ${o.name||'friend'} — your IRONSEED kit is on its way.</p>
+    <p>A confirmation has been sent to <b style="color:var(--heading)">${o.email||''}</b>.</p>
+    <div class="order-box">
+      <div class="row"><span>Order number</span><b>${o.id}</b></div>
+      <div class="row"><span>Items</span><b>${o.items} plate kit${o.items>1?'s':''}</b></div>
+      <div class="row"><span>Total paid</span><b>${money(o.total)}</b></div>
+      <div class="row"><span>Estimated delivery</span><b>3–6 business days</b></div>
+    </div>
+    <p style="font-size:14px">Your plates ship in tamper-evident packaging. When they arrive, engrave your recovery words offline — we never see them.</p>
+    <div class="hero-cta" style="justify-content:center;margin-top:24px"><a class="btn btn-primary" data-nav="home">Back to home</a><a class="btn btn-ghost" data-nav="how">Engraving guide</a></div>
+  </div></div></section>`;
+};
+
+views.how=()=>`
+${pageHead([{label:'Home',nav:'home'},{label:'How it works'}],'How it works','Bank-grade backup in three steps','Designed so your secret words never touch a screen, a server, or another person.')}
+<section class="section" style="padding-top:26px"><div class="wrap"><div class="steps">
+  <div class="step reveal"><div class="num">1</div><h3>Order your plate</h3><p>Choose your IRONSEED kit. It ships in tamper-evident packaging with everything you need — no software, no account, no data collected.</p></div>
+  <div class="step reveal"><div class="num">2</div><h3>Engrave offline</h3><p>Transfer your recovery words onto the steel with the precision stamping tool — entirely by hand, in private. Nothing is ever typed or transmitted.</p></div>
+  <div class="step reveal"><div class="num">3</div><h3>Store &amp; forget</h3><p>Seal the plate and place it in a safe, drawer, or vault. It will outlive every hard drive, phone and cloud you own — ready when you need it.</p></div>
+</div></div></section>
+<section class="section sec-band"><div class="wrap"><div class="showcase">
+  <div class="reveal"><div class="plate-stage"><div class="plate-float">${bigPlate(24)}</div></div></div>
+  <div class="reveal"><span class="eyebrow"><span class="dot"></span>The engraving ritual</span><h2 class="title" style="font-size:clamp(24px,3.4vw,36px);margin:14px 0 16px">Ten quiet minutes, then peace of mind for decades</h2>
+  <div class="spec-list">
+    <div class="spec-row"><span class="k">${CHECK} Align the letter tiles in the jig</span></div>
+    <div class="spec-row"><span class="k">${CHECK} Stamp each word, row by row</span></div>
+    <div class="spec-row"><span class="k">${CHECK} Verify against your wallet, offline</span></div>
+    <div class="spec-row"><span class="k">${CHECK} Apply the tamper-evident seal</span></div>
+    <div class="spec-row"><span class="k">${CHECK} Store in two separate secure locations</span></div>
+  </div></div>
+</div></div></section>
+<section class="section"><div class="wrap"><div class="section-head center reveal"><h2 class="title">Why steel beats every alternative</h2></div>${featureCards()}</div></section>
+${ctaBand()}`;
+
+views.security=()=>`
+${pageHead([{label:'Home',nav:'home'},{label:'Security'}],'Security','The trust standards of a bank. The independence of self-custody.','IRONSEED is built on the same zero-trust principles institutions use to protect reserves — with you as the only key holder.')}
+<section class="section" style="padding-top:26px"><div class="wrap"><div class="sec-grid">
+  <div class="sec-item reveal"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Zero-knowledge</h3><p>We never see, store, or transmit your recovery words. There is nothing on our side to leak.</p></div>
+  <div class="sec-item reveal"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 9V6a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Air-gapped by design</h3><p>No electronics, no connectivity, no attack surface. Your backup can't be reached across any network.</p></div>
+  <div class="sec-item reveal"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 12l1.8 1.8 3.4-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Tamper-evident chain</h3><p>Serialized seals and verifiable packaging confirm your kit arrived untouched.</p></div>
+  <div class="sec-item reveal"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 10v5c0 2 5 3 5 3s5-1 5-3v-5" stroke="currentColor" stroke-width="1.6"/></svg></div><h3>Multi-share ready</h3><p>Split a seed across plates with Shamir Backup for institutional redundancy and inheritance planning.</p></div>
+</div></div></section>
+<section class="section sec-band"><div class="wrap"><div class="cols-2">
+  <div class="risk-card safe reveal"><h3>🔒 What IRONSEED will never do</h3><ul class="risk-list">
+    <li><span class="c">✓</span><span>Ask you to type your seed phrase anywhere</span></li>
+    <li><span class="c">✓</span><span>Store, sync, or back up your words to any server</span></li>
+    <li><span class="c">✓</span><span>Require an account, login, or personal wallet data</span></li>
+    <li><span class="c">✓</span><span>Ship firmware or software that could be exploited</span></li></ul></div>
+  <div class="risk-card reveal"><h3>🧭 Your responsibility as the key holder</h3><ul class="risk-list">
+    <li><span class="c">✓</span><span>Engrave in a private space, away from cameras</span></li>
+    <li><span class="c">✓</span><span>Store plates in separate, secure physical locations</span></li>
+    <li><span class="c">✓</span><span>Never photograph or share the engraved plate</span></li>
+    <li><span class="c">✓</span><span>Use a passphrase (25th word) for extra protection</span></li></ul></div>
+</div></div></section>
+${ctaBand()}`;
+
+views.faq=()=>{
+  const items=[
+    ['Does IRONSEED ever see my recovery phrase?','Never. You engrave your words yourself, entirely offline. IRONSEED ships you blank steel and a stamping tool — we have no server, app, or process that ever touches your phrase. There is literally nothing on our side to compromise.'],
+    ['Which wallets and coins does it work with?','All of them. IRONSEED works with any wallet that uses a standard BIP39 recovery phrase — including Ledger, Trezor, MetaMask, Coinbase Wallet, Phantom and hundreds more. If your wallet gave you 12, 18, or 24 words, it\'s compatible.'],
+    ['What happens in a house fire or flood?','Your words stay readable. IRONSEED plates are cut from 316L stainless steel with a melting point around 1,400°C — hotter than a typical residential fire. They\'re fully waterproof and corrosion-proof, so floods and humidity do nothing to them.'],
+    ['Is metal really safer than a hardware wallet?','They solve different problems. A hardware wallet protects your keys while you use them; IRONSEED protects your recovery phrase if that device is ever lost, broken, or discontinued. Every hardware wallet\'s own manual tells you to back up the seed — IRONSEED is the most durable way to do exactly that.'],
+    ['What\'s covered by the lifetime guarantee?','Every plate is guaranteed against corrosion, material defects, and legibility failure for life. If an IRONSEED plate ever degrades under normal storage, we replace it free — because a backup you can\'t trust isn\'t a backup.'],
+    ['How is my order shipped?','Free, insured worldwide shipping in discreet, tamper-evident packaging. Orders arrive in 3–6 business days. Nothing on the outside indicates crypto or value.']
+  ];
+  return `${pageHead([{label:'Home',nav:'home'},{label:'FAQ'}],'FAQ','Questions, answered','')}
+  <section class="section" style="padding-top:26px"><div class="wrap"><div class="faq">
+    ${items.map(([q,a])=>`<div class="faq-item reveal"><button class="faq-q" type="button">${q}<span class="pm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button><div class="faq-a"><p>${a}</p></div></div>`).join('')}
+  </div></div></section>
+  <section class="section tight"><div class="wrap"><div class="empty-state reveal" style="max-width:640px;margin:0 auto"><h3>Still have a question?</h3><p>Our team answers every message, usually within a few hours.</p><a class="btn btn-primary" data-nav="contact">Contact support ${ARROW}</a></div></div></section>`;
+};
+
+views.about=()=>`
+${pageHead([{label:'Home',nav:'home'},{label:'About'}],'About','Built by people who lost coins to bad backups','')}
+<section class="section" style="padding-top:26px"><div class="wrap"><div class="about-lead reveal">
+  <p>IRONSEED started after one of our founders watched a friend lose a life-changing amount of Bitcoin to a water-damaged paper backup. The keys were right — the paper simply didn't survive. We built the backup we wished had existed: something that treats a recovery phrase with the seriousness a bank gives to gold, while keeping you as the only person who ever holds it.</p>
+</div>
+<div class="values">
+  <div class="feature reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.7"/></svg></div><h3>Security first</h3><p>Every decision starts with one question: does this keep the user as the sole key holder? If not, we don't ship it.</p></div>
+  <div class="feature reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12l4-8h8l4 8-8 8-8-8z" stroke="currentColor" stroke-width="1.7"/></svg></div><h3>Built to last</h3><p>We over-engineer. Marine-grade steel, tested against fire, flood and time — because a backup only matters on its worst day.</p></div>
+  <div class="feature reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Radically honest</h3><p>No lock-in, no accounts, no data harvesting. We sell a piece of steel that makes you more independent, not less.</p></div>
+</div></div></section>
+<section class="section sec-band"><div class="wrap"><div class="stats">
+  <div class="stat reveal"><div class="n">120k+</div><div class="l">Plates engraved worldwide</div></div>
+  <div class="stat reveal"><div class="n">4.9★</div><div class="l">Average rating across 12k reviews</div></div>
+  <div class="stat reveal"><div class="n">38</div><div class="l">Countries shipped to</div></div>
+  <div class="stat reveal"><div class="n">0</div><div class="l">Recovery phrases ever seen by us</div></div>
+</div></div></section>
+${ctaBand()}`;
+
+views.contact=()=>`
+${pageHead([{label:'Home',nav:'home'},{label:'Contact'}],'Contact','We’re here to help','Questions about your order, engraving, or bulk custody? Reach out — a real person answers every message.')}
+<section class="section" style="padding-top:26px"><div class="wrap"><div class="contact-grid">
+  <div class="reveal">
+    <div class="info-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.7"/></svg></div><div><h4>Email us</h4><p>support@ironseed.example · replies within a few hours</p></div></div>
+    <div class="info-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></div><div><h4>Priority line (institutional)</h4><p>Dedicated account managers for funds &amp; treasuries</p></div></div>
+    <div class="info-card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><div><h4>Support hours</h4><p>Monday–Saturday, 08:00–20:00 UTC</p></div></div>
+  </div>
+  <div class="form-card reveal"><h3>Send a message</h3>
+    <form id="contactForm" novalidate>
+      <div class="field"><label>Name</label><input name="name" required /><span class="msg"></span></div>
+      <div class="field"><label>Email</label><input type="email" name="email" required /><span class="msg"></span></div>
+      <div class="field"><label>Message</label><input name="message" required placeholder="How can we help?" /><span class="msg"></span></div>
+      <button class="btn btn-primary btn-block" type="submit">Send message</button>
+    </form>
+  </div>
+</div></div></section>`;
+
+/* ===== ROUTER ===== */
+function parse(){const h=(location.hash||'#/home').replace(/^#\//,'');const [name,param]=h.split('/');return {name:name||'home',param};}
+function render(){
+  const {name,param}=parse();
+  const fn=views[name]||views.home;
+  $('#view').innerHTML=(name==='product')?fn(param):fn();
+  window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
+  setActive(name);
+  afterRender();
+}
+function setActive(name){$$('.nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.nav===name||(name==='product'&&a.dataset.nav==='products')));}
+function go(route){if(('#/'+route)===location.hash){render();}else{location.hash='#/'+route;}}
+window.addEventListener('hashchange',render);
+
+/* ===== GLOBAL EVENTS ===== */
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('[data-nav]');
+  if(nav){e.preventDefault();go(nav.dataset.nav);return;}
+  const add=e.target.closest('[data-add]');
+  if(add){addToCart(add.dataset.add,byId(add.dataset.add).words>=24?24:12,1);return;}
+});
+$('#newsBtn').addEventListener('click',()=>{const v=$('#newsEmail').value.trim();if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){$('#newsEmail').value='';toast('Subscribed — welcome aboard');}else{toast('Please enter a valid email');}});
+
+/* ===== AFTER RENDER ===== */
+function afterRender(){
+  // reveal
+  const io=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12});
+  $$('#view .reveal').forEach((el,i)=>{el.style.transitionDelay=((i%3)*0.07)+'s';io.observe(el);});
+  // faq
+  $$('#view .faq-q').forEach(q=>q.addEventListener('click',()=>{
+    const item=q.parentElement,a=item.querySelector('.faq-a'),open=item.classList.contains('open');
+    $$('#view .faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});
+    if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
+  }));
+  // product detail interactions
+  const wordOpts=$('#wordOpts');
+  if(wordOpts){
+    let selWords=+wordOpts.querySelector('.opt.sel').dataset.word;let qty=1;
+    const pid=$('#pdAdd').dataset.addDetail;const price=byId(pid).price;
+    const upd=()=>{$('#pdPrice').textContent=money(price*qty);};
+    wordOpts.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;wordOpts.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');selWords=+b.dataset.word;});
+    $$('#view [data-qty]').forEach(b=>b.addEventListener('click',()=>{qty=Math.max(1,qty+(+b.dataset.qty));$('#qtyInput').value=qty;upd();}));
+    $('#pdAdd').addEventListener('click',()=>addToCart(pid,selWords,qty));
+    $('#pdBuy').addEventListener('click',()=>{addToCart(pid,selWords,qty);go('checkout');});
+  }
+  // cart qty + remove
+  $$('#view [data-cq]').forEach(b=>b.addEventListener('click',()=>{const [key,d]=b.dataset.cq.split(':');const it=cart.find(i=>i.key===key);if(it)setItemQty(key,it.qty+(+d));}));
+  $$('#view [data-rm]').forEach(b=>b.addEventListener('click',()=>removeItem(b.dataset.rm)));
+  const promoBtn=$('#promoBtn');if(promoBtn)promoBtn.addEventListener('click',()=>{const v=($('#promo').value||'').trim().toUpperCase();toast(v?('Code "'+v+'" is not valid'):'Enter a promo code');});
+  // checkout
+  const co=$('#coForm');
+  if(co){
+    $$('#view .pay-opt').forEach(p=>p.addEventListener('click',()=>{
+      $$('#view .pay-opt').forEach(x=>x.classList.remove('sel'));p.classList.add('sel');
+      const cardFields=$('#payFields');cardFields.style.display=p.dataset.pay==='card'?'block':'none';
+      cardFields.querySelectorAll('input').forEach(i=>i.required=(p.dataset.pay==='card'));
+    }));
+    co.addEventListener('submit',e=>{
+      e.preventDefault();let ok=true;
+      co.querySelectorAll('input,select').forEach(f=>{
+        const msg=f.parentElement.querySelector('.msg');if(!f.required){return;}
+        let bad=!f.value.trim();
+        if(f.type==='email'&&f.value&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value))bad=true;
+        f.classList.toggle('err',bad);if(msg)msg.textContent=bad?(f.type==='email'&&f.value?'Enter a valid email':'Required'):'';
+        if(bad)ok=false;
+      });
+      if(!ok){toast('Please complete the highlighted fields');return;}
+      const data=Object.fromEntries(new FormData(co).entries());
+      const order={id:'IS-2026-'+String(Math.floor(1000+Math.random()*9000)),name:(data.first||'')+' '+(data.last||''),email:data.email,items:cartQty(),total:cartSubtotal()};
+      sSet('is-lastorder',JSON.stringify(order));
+      cart=[];saveCart();
+      go('confirm');
+    });
+  }
+  const cf=$('#contactForm');
+  if(cf)cf.addEventListener('submit',e=>{e.preventDefault();let ok=true;cf.querySelectorAll('input').forEach(f=>{let bad=!f.value.trim();if(f.type==='email'&&f.value&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value))bad=true;f.classList.toggle('err',bad);const m=f.parentElement.querySelector('.msg');if(m)m.textContent=bad?'Required':'';if(bad)ok=false;});if(ok){cf.reset();toast('Message sent — we\'ll be in touch soon');}});
+}
+
+/* ===== TOAST ===== */
+let toastT;
+function toast(msg){$('#toastMsg').textContent=msg;const t=$('#toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ===== NAV SCROLL ===== */
+window.addEventListener('scroll',()=>{$('#header').classList.toggle('scrolled',window.scrollY>20);});
+
+/* ===== INIT ===== */
+updateCartCount();
+if(!location.hash)location.hash='#/home';
+render();
+</script>
+</body>
+</html>
